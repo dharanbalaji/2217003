@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Shortener Statistics</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background: #f4f4f4; }
+        h1 { text-align: center; }
+        .url-stats { background: #fff; margin-bottom: 30px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px #ddd; }
+        .click-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .click-table th, .click-table td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .click-table th { background: #eee; }
+    </style>
+</head>
+<body>
+    <h1>Shortened URL Statistics</h1>
+    <div id="stats"></div>
+    <script>
+    // Mock data: Replace with API call to fetch statistics
+    const statsData = [
+        {
+            shortUrl: "https://short.ly/abc123",
+            originalUrl: "https://example.com/page",
+            created: "2025-08-20 10:00",
+            expiry: "2025-08-21 10:00",
+            clickCount: 3,
+            clicks: [
+                { timestamp: "2025-08-20 11:00", source: "Email", location: "India" },
+                { timestamp: "2025-08-20 12:30", source: "WhatsApp", location: "USA" },
+                { timestamp: "2025-08-20 13:15", source: "Direct", location: "UK" }
+            ]
+        },
+        {
+            shortUrl: "https://short.ly/xyz789",
+            originalUrl: "https://another.com/article",
+            created: "2025-08-19 09:30",
+            expiry: "Never",
+            clickCount: 1,
+            clicks: [
+                { timestamp: "2025-08-19 10:00", source: "Facebook", location: "Canada" }
+            ]
+        }
+    ];
+
+    function renderStats(data) {
+        const statsDiv = document.getElementById('stats');
+        statsDiv.innerHTML = data.map(url => `
+            <div class="url-stats">
+                <strong>Shortened URL:</strong> <a href="${url.shortUrl}" target="_blank">${url.shortUrl}</a><br>
+                <strong>Original URL:</strong> ${url.originalUrl}<br>
+                <strong>Created:</strong> ${url.created}<br>
+                <strong>Expiry:</strong> ${url.expiry}<br>
+                <strong>Total Clicks:</strong> ${url.clickCount}
+                <h4>Click Details:</h4>
+                <table class="click-table">
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Source</th>
+                        <th>Location</th>
+                    </tr>
+                    ${url.clicks.map(click => `
+                        <tr>
+                            <td>${click.timestamp}</td>
+                            <td>${click.source}</td>
+                            <td>${click.location}</td>
+                        </tr>
+                    `).join('')}
+                </table>
+            </div>
+        `).join('');
+    }
+
+    renderStats(statsData);
+    </script>
+</body>
+</html>
